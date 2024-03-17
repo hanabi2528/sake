@@ -1,5 +1,6 @@
 package com.hanabi.sake;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -10,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -49,7 +51,7 @@ public final class Sake extends JavaPlugin implements Listener {
         regenerationPotion.setDurability((short) 8193); // 再生のポーションのデータ値
         ItemMeta meta = regenerationPotion.getItemMeta();
         meta.setDisplayName("Ybウィスキー" );
-        meta.setLore(Arrays.asList("購入金額　10000円", "当選金額　200000円")); // ここで複数行の説明を設定
+        meta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円")); // ここで複数行の説明を設定
         regenerationPotion.setItemMeta(meta);
 
         // インベントリに再生のポーションを追加
@@ -89,6 +91,11 @@ public final class Sake extends JavaPlugin implements Listener {
             if (clickedItem != null && clickedItem.getType() != Material.AIR && clickedItem.hasItemMeta()) {
                 ItemMeta meta = clickedItem.getItemMeta();
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー")) {
+                    /* お金が足りているかを判定
+                    if(所持金　<　10000){
+                      player.sendMessage("お金が足りません！);
+                      } else {
+                     */
                     // クリックされたアイテムが "Ybウィスキー" である場合、そのアイテムをプレイヤーのインベントリに追加
                     Player player = (Player) event.getWhoClicked();
                     if (player.getInventory().firstEmpty() != -1) {
@@ -100,6 +107,26 @@ public final class Sake extends JavaPlugin implements Listener {
                         player.sendMessage("インベントリがいっぱいです！");
                     }
                 }
+            }
+        }
+    }
+    @EventHandler
+    public void onPlayerConsumePotion(PlayerItemConsumeEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        // Ybウィスキーを飲んだ場合かつYbウィスキーの名前が設定されている場合
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("Ybウィスキー")) {
+            // ランダムな確率を生成
+            double probability = Math.random();
+            double threshold = 0.1; // 10%の確率
+
+            // 確率に基づいてイベントを起こす
+            if (probability < threshold) {
+                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + player + "がYbウィスキーに当選しました！");
+                // playerにお金を増やす
+            } else{
+                player.sendMessage("ハズレ...");
             }
         }
     }
