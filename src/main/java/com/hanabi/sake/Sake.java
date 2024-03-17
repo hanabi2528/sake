@@ -2,6 +2,7 @@ package com.hanabi.sake;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
@@ -49,20 +51,21 @@ public final class Sake extends JavaPlugin implements Listener {
 
         //Ybウィスキーの追加
         ItemStack a = new ItemStack(Material.POTION);
-        a.setDurability((short) 8193);// 再生のポーションのデータ値
-        ItemMeta ameta = a.getItemMeta();
+        PotionMeta ameta = (PotionMeta) a.getItemMeta();
         ameta.setDisplayName("Ybウィスキー" );
         ameta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円")); // ここで複数行の説明を設定
+        ameta.setColor(Color.BLUE);
         a.setItemMeta(ameta);
 
         ItemStack b = new ItemStack(Material.POTION);
-        b.setDurability((short) 8194);
-        ItemMeta bmeta = b.getItemMeta();
+        PotionMeta bmeta = (PotionMeta) a.getItemMeta();
         bmeta.setDisplayName("大石ウォッカ" );
         bmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　200000円")); // ここで複数行の説明を設定
+        bmeta.setColor(Color.YELLOW);
         b.setItemMeta(bmeta);
 
         inventory.setItem(0, a);
+        inventory.setItem(1, b);
 
         // プレイヤーにインベントリを開く
         player.openInventory(inventory);
@@ -120,7 +123,7 @@ public final class Sake extends JavaPlugin implements Listener {
                       player.sendMessage("お金が足りません！);
                       } else {
                      */
-                    // クリックされたアイテムが "Ybウィスキー" である場合、そのアイテムをプレイヤーのインベントリに追加
+                    // クリックされたアイテムが "大石ウォッカ" である場合、そのアイテムをプレイヤーのインベントリに追加
                     Player player = (Player) event.getWhoClicked();
                     if (player.getInventory().firstEmpty() != -1) {
                         player.getInventory().addItem(clickedItem);
