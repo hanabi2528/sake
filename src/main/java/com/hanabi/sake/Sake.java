@@ -60,7 +60,7 @@ public final class Sake extends JavaPlugin implements Listener {
         ItemStack b = new ItemStack(Material.POTION);
         PotionMeta bmeta = (PotionMeta) b.getItemMeta();
         bmeta.setDisplayName("大石ウォッカ");
-        bmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　200000円", "期待度☆☆☆☆☆")); // ここで複数行の説明を設定
+        bmeta.setLore(Arrays.asList("購入金額　11014円", "当選金額　931014円", "期待度☆☆☆☆☆☆")); // ここで複数行の説明を設定
         bmeta.setColor(Color.YELLOW);
         b.setItemMeta(bmeta);
 
@@ -85,11 +85,19 @@ public final class Sake extends JavaPlugin implements Listener {
         emeta.setColor(Color.RED);
         e.setItemMeta(emeta);
 
+        ItemStack f = new ItemStack(Material.POTION);
+        PotionMeta fmeta = (PotionMeta) c.getItemMeta();
+        fmeta.setDisplayName("中日ソーダ");
+        fmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　1500円", "期待度★★★★☆")); // ここで複数行の説明を設定
+        fmeta.setColor(Color.AQUA);
+        f.setItemMeta(fmeta);
+
         inventory.setItem(0, a);
         inventory.setItem(1, b);
         inventory.setItem(2, c);
         inventory.setItem(3, d);
         inventory.setItem(4, e);
+        inventory.setItem(5, f);
 
 
         // プレイヤーにインベントリを開く
@@ -121,7 +129,57 @@ public final class Sake extends JavaPlugin implements Listener {
 
             if (clickedItem != null && clickedItem.getType() != Material.AIR && clickedItem.hasItemMeta()) {
                 ItemMeta meta = clickedItem.getItemMeta();
-                if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー") || meta.getDisplayName().equals("大石ウォッカ") || meta.getDisplayName().equals("無限岩崎スカッシュ") || meta.getDisplayName().equals("ハッシーハッピーブライトシャンパン777") || meta.getDisplayName().equals("梅肉入り倉橋") && meta.hasLore()) {
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("大石ウォッカ") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("無限岩崎スカッシュ") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("ハッシーハッピーブライトシャンパン777") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("梅肉入り倉橋") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("中日ソーダ") && meta.hasLore()) {
                     // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
                     if (player.getInventory().firstEmpty() != -1) {
@@ -155,11 +213,11 @@ public final class Sake extends JavaPlugin implements Listener {
         }
         if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("大石ウォッカ") && item.getItemMeta().hasLore()) {
             double probability = Math.random();
-            double threshold = 0.005; // 0.5%の確率
+            double threshold = 0.012; // 1.2%の確率
 
             if (probability < threshold) {
                 Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + player.getDisplayName() + "が大石ウォッカに当選しました！");
-                player.sendMessage(ChatColor.YELLOW + "200000円" + ChatColor.WHITE + "獲得しました！！");
+                player.sendMessage(ChatColor.YELLOW + "931014円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
 
             } else {
@@ -199,6 +257,19 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 player.sendMessage("当たりました！");
                 player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
+                // playerにお金を増やす
+
+            } else {
+                player.sendMessage("ハズレ...");
+            }
+        }
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("中日ソーダ") && item.getItemMeta().hasLore()) {
+            double probability = Math.random();
+            double threshold = 0.67; // 67%の確率
+
+            if (probability < threshold) {
+                player.sendMessage("当たりました！");
+                player.sendMessage(ChatColor.YELLOW + "1500円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
 
             } else {
