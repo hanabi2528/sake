@@ -123,7 +123,7 @@ public final class Sake extends JavaPlugin implements Listener {
 
             // 確率に基づいてイベントを起こす
             if (probability < threshold) {
-                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + player + "がYbウィスキーに当選しました！");
+                Bukkit.getServer().broadcastMessage( ChatColor.YELLOW + player.getDisplayName() + "がYbウィスキーに当選しました！");
                 // playerにお金を増やす
             } else{
                 player.sendMessage("ハズレ...");
