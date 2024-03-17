@@ -53,51 +53,58 @@ public final class Sake extends JavaPlugin implements Listener {
         ItemStack a = new ItemStack(Material.POTION);
         PotionMeta ameta = (PotionMeta) a.getItemMeta();
         ameta.setDisplayName("Ybウィスキー");
-        ameta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円", "期待度★☆☆☆☆")); // ここで複数行の説明を設定
+        ameta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円", "期待度★☆☆☆☆","Yb社によって作られた熟練のウィスキーだ")); // ここで複数行の説明を設定
         ameta.setColor(Color.GRAY);
         a.setItemMeta(ameta);
 
         ItemStack b = new ItemStack(Material.POTION);
         PotionMeta bmeta = (PotionMeta) b.getItemMeta();
         bmeta.setDisplayName("大石ウォッカ");
-        bmeta.setLore(Arrays.asList("購入金額　11014円", "当選金額　931014円", "期待度☆☆☆☆☆☆")); // ここで複数行の説明を設定
+        bmeta.setLore(Arrays.asList("購入金額　11014円", "当選金額　931014円", "期待度☆☆☆☆☆☆" ,"この酒は、大石の口の中で熟成してできた酒だそうだ...")); // ここで複数行の説明を設定
         bmeta.setColor(Color.YELLOW);
         b.setItemMeta(bmeta);
 
         ItemStack c = new ItemStack(Material.POTION);
         PotionMeta cmeta = (PotionMeta) c.getItemMeta();
         cmeta.setDisplayName("無限岩崎スカッシュ");
-        cmeta.setLore(Arrays.asList("購入金額　100000円", "当選金額　90000円", "一度当たるともう一回続く...？", "期待度？？？")); // ここで複数行の説明を設定
+        cmeta.setLore(Arrays.asList("購入金額　100000円", "当選金額　90000円", "期待度？？？" ,"一度当たるともう一回続く...？")); // ここで複数行の説明を設定
         cmeta.setColor(Color.BLUE);
         c.setItemMeta(cmeta);
 
         ItemStack d = new ItemStack(Material.POTION);
         PotionMeta dmeta = (PotionMeta) c.getItemMeta();
         dmeta.setDisplayName("ハッシーハッピーブライトシャンパン777");
-        dmeta.setLore(Arrays.asList("購入金額　77777円", "当選金額　1103000円",  "期待度☆☆☆☆☆")); // ここで複数行の説明を設定
+        dmeta.setLore(Arrays.asList("購入金額　77777円", "当選金額　1103000円",  "期待度☆☆☆☆☆","とある方々の魂が込められたシャンパンだ...")); // ここで複数行の説明を設定
         dmeta.setColor(Color.BLACK);
         d.setItemMeta(dmeta);
 
         ItemStack e = new ItemStack(Material.POTION);
         PotionMeta emeta = (PotionMeta) c.getItemMeta();
         emeta.setDisplayName("梅肉入り倉橋");
-        emeta.setLore(Arrays.asList("購入金額　350円", "当選金額　700円", "期待度★★★☆☆")); // ここで複数行の説明を設定
+        emeta.setLore(Arrays.asList("購入金額　350円", "当選金額　700円", "期待度★★★☆☆","これは酒じゃなく普通に梅肉が入った倉橋では...？")); // ここで複数行の説明を設定
         emeta.setColor(Color.RED);
         e.setItemMeta(emeta);
 
         ItemStack f = new ItemStack(Material.POTION);
         PotionMeta fmeta = (PotionMeta) c.getItemMeta();
         fmeta.setDisplayName("中日ソーダ");
-        fmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　1500円", "期待度★★★★☆")); // ここで複数行の説明を設定
+        fmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　1500円", "期待度★★★★☆","某中日ドラゴンズが稼ぐために考えられたソーダだ")); // ここで複数行の説明を設定
         fmeta.setColor(Color.AQUA);
         f.setItemMeta(fmeta);
 
         ItemStack g = new ItemStack(Material.POTION);
         PotionMeta gmeta = (PotionMeta) c.getItemMeta();
         gmeta.setDisplayName("速水ロック");
-        gmeta.setLore(Arrays.asList("購入金額　500円", "当選金額　700円", "期待度★★★★☆")); // ここで複数行の説明を設定
+        gmeta.setLore(Arrays.asList("購入金額　500円", "当選金額　700円", "期待度★★★★☆","我らが音楽の教師速水が作り上げた臭すぎるロックだ")); // ここで複数行の説明を設定
         gmeta.setColor(Color.PURPLE);
         g.setItemMeta(gmeta);
+
+        ItemStack h = new ItemStack(Material.POTION);
+        PotionMeta hmeta = (PotionMeta) c.getItemMeta();
+        hmeta.setDisplayName("八つ橋スプライト");
+        hmeta.setLore(Arrays.asList("購入金額　10000円", "当選金額　9000円", "期待度？？？","一度当たるともう一回続く...？")); // ここで複数行の説明を設定
+        hmeta.setColor(Color.PURPLE);
+        h.setItemMeta(hmeta);
 
         inventory.setItem(0, a);
         inventory.setItem(1, b);
@@ -106,6 +113,7 @@ public final class Sake extends JavaPlugin implements Listener {
         inventory.setItem(4, e);
         inventory.setItem(5, f);
         inventory.setItem(6, g);
+        inventory.setItem(7, h);
 
 
         // プレイヤーにインベントリを開く
@@ -198,6 +206,16 @@ public final class Sake extends JavaPlugin implements Listener {
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("速水ロック") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("八つ橋スプライト") && meta.hasLore()) {
                     // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
                     if (player.getInventory().firstEmpty() != -1) {
@@ -303,6 +321,19 @@ public final class Sake extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
 
+            } else {
+                player.sendMessage("ハズレ...");
+            }
+        }
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("八つ橋スプライト") && item.getItemMeta().hasLore()) {
+            double probability = Math.random();
+            double threshold = 0.5; // 50%の確率
+
+            // 確率に基づいてイベントを起こす
+            if (probability < threshold) {
+                player.sendMessage(ChatColor.YELLOW + "9000円" + ChatColor.WHITE + "獲得しました！！");
+                // playerにお金を増やす
+                event.setCancelled(true);
             } else {
                 player.sendMessage("ハズレ...");
             }
