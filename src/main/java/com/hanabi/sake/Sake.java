@@ -121,6 +121,7 @@ public final class Sake extends JavaPlugin implements Listener {
         inventory.setItem(5, f);
         inventory.setItem(6, g);
         inventory.setItem(7, h);
+        inventory.setItem(8, i);
 
 
         // プレイヤーにインベントリを開く
