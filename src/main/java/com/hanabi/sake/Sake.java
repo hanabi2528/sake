@@ -47,15 +47,22 @@ public final class Sake extends JavaPlugin implements Listener {
     private Inventory createCustomInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(new CustomInventoryHolder(), 9 , "バーテンダー");
 
-        ItemStack regenerationPotion = new ItemStack(Material.POTION);
-        regenerationPotion.setDurability((short) 8193); // 再生のポーションのデータ値
-        ItemMeta meta = regenerationPotion.getItemMeta();
-        meta.setDisplayName("Ybウィスキー" );
-        meta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円")); // ここで複数行の説明を設定
-        regenerationPotion.setItemMeta(meta);
+        //Ybウィスキーの追加
+        ItemStack a = new ItemStack(Material.POTION);
+        a.setDurability((short) 8193);// 再生のポーションのデータ値
+        ItemMeta ameta = a.getItemMeta();
+        ameta.setDisplayName("Ybウィスキー" );
+        ameta.setLore(Arrays.asList("購入金額　10000円", "当選金額　100000円")); // ここで複数行の説明を設定
+        a.setItemMeta(ameta);
 
-        // インベントリに再生のポーションを追加
-        inventory.setItem(0, regenerationPotion);
+        ItemStack b = new ItemStack(Material.POTION);
+        b.setDurability((short) 8194);
+        ItemMeta bmeta = b.getItemMeta();
+        bmeta.setDisplayName("大石ウォッカ" );
+        bmeta.setLore(Arrays.asList("購入金額　1000円", "当選金額　200000円")); // ここで複数行の説明を設定
+        b.setItemMeta(bmeta);
+
+        inventory.setItem(0, a);
 
         // プレイヤーにインベントリを開く
         player.openInventory(inventory);
@@ -107,6 +114,23 @@ public final class Sake extends JavaPlugin implements Listener {
                         player.sendMessage("インベントリがいっぱいです！");
                     }
                 }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("大石ウォッカ")) {
+                    /* お金が足りているかを判定
+                    if(所持金　<　1000){
+                      player.sendMessage("お金が足りません！);
+                      } else {
+                     */
+                    // クリックされたアイテムが "Ybウィスキー" である場合、そのアイテムをプレイヤーのインベントリに追加
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        // イベントをキャンセルする（インベントリの移動を防止）
+                        event.setCancelled(true);
+                    } else {
+                        // プレイヤーのインベントリがいっぱいの場合は何もしない
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
             }
         }
     }
@@ -124,6 +148,21 @@ public final class Sake extends JavaPlugin implements Listener {
             // 確率に基づいてイベントを起こす
             if (probability < threshold) {
                 Bukkit.getServer().broadcastMessage( ChatColor.YELLOW + player.getDisplayName() + "がYbウィスキーに当選しました！");
+                player.sendMessage("100000円獲得しました！！");
+                // playerにお金を増やす
+            } else{
+                player.sendMessage("ハズレ...");
+            }
+        }
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("大石ウォッカ")) {
+            // ランダムな確率を生成
+            double probability = Math.random();
+            double threshold = 0.005; // 0.5%の確率
+
+            // 確率に基づいてイベントを起こす
+            if (probability < threshold) {
+                Bukkit.getServer().broadcastMessage( ChatColor.YELLOW + player.getDisplayName() + "が大石ウォッカに当選しました！");
+                player.sendMessage("200000円獲得しました！！");
                 // playerにお金を増やす
             } else{
                 player.sendMessage("ハズレ...");
