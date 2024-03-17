@@ -1,0 +1,4 @@
+name: sake
+version: '${project.version}'
+main: com.hanabi.sake.Sake
+api-version: '1.20'
