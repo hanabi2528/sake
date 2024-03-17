@@ -92,12 +92,20 @@ public final class Sake extends JavaPlugin implements Listener {
         fmeta.setColor(Color.AQUA);
         f.setItemMeta(fmeta);
 
+        ItemStack g = new ItemStack(Material.POTION);
+        PotionMeta gmeta = (PotionMeta) c.getItemMeta();
+        gmeta.setDisplayName("速水ロック");
+        gmeta.setLore(Arrays.asList("購入金額　500円", "当選金額　700円", "期待度★★★★☆")); // ここで複数行の説明を設定
+        gmeta.setColor(Color.PURPLE);
+        g.setItemMeta(gmeta);
+
         inventory.setItem(0, a);
         inventory.setItem(1, b);
         inventory.setItem(2, c);
         inventory.setItem(3, d);
         inventory.setItem(4, e);
         inventory.setItem(5, f);
+        inventory.setItem(6, g);
 
 
         // プレイヤーにインベントリを開く
@@ -189,6 +197,16 @@ public final class Sake extends JavaPlugin implements Listener {
                         player.sendMessage("インベントリがいっぱいです！");
                     }
                 }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("速水ロック") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
             }
         }
     }
@@ -255,7 +273,7 @@ public final class Sake extends JavaPlugin implements Listener {
             double threshold = 0.5; // 50%の確率
 
             if (probability < threshold) {
-                player.sendMessage("当たりました！");
+                player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
 
@@ -268,8 +286,21 @@ public final class Sake extends JavaPlugin implements Listener {
             double threshold = 0.67; // 67%の確率
 
             if (probability < threshold) {
-                player.sendMessage("当たりました！");
+                player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "1500円" + ChatColor.WHITE + "獲得しました！！");
+                // playerにお金を増やす
+
+            } else {
+                player.sendMessage("ハズレ...");
+            }
+        }
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("速水ロック") && item.getItemMeta().hasLore()) {
+            double probability = Math.random();
+            double threshold = 0.71; // 71%の確率
+
+            if (probability < threshold) {
+                player.sendMessage("当たり！");
+                player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
 
             } else {
