@@ -103,7 +103,7 @@ public final class Sake extends JavaPlugin implements Listener {
         PotionMeta hmeta = (PotionMeta) c.getItemMeta();
         hmeta.setDisplayName("八つ橋スプライト");
         hmeta.setLore(Arrays.asList("購入金額　10000円", "当選金額　9000円", "期待度？？？","一度当たるともう一回続く...？")); // ここで複数行の説明を設定
-        hmeta.setColor(Color.PURPLE);
+        hmeta.setColor(Color.MAROON);
         h.setItemMeta(hmeta);
 
         ItemStack i = new ItemStack(Material.POTION);
