@@ -1,0 +1,4 @@
+name: sake
+version: '1.0-SNAPSHOT'
+main: com.hanabi.sake.Sake
+api-version: '1.20'

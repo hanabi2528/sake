@@ -8,6 +8,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +53,7 @@ public final class Sake extends JavaPlugin implements Listener {
         regenerationPotion.setItemMeta(meta);
 
         // インベントリに再生のポーションを追加
-        inventory.setItem(4, regenerationPotion);
+        inventory.setItem(0, regenerationPotion);
 
         // プレイヤーにインベントリを開く
         player.openInventory(inventory);
@@ -75,14 +76,30 @@ public final class Sake extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEntityEvent event) {
-        if (event.getRightClicked().getType() == EntityType.VILLAGER) {
-            Villager villager = (Villager) event.getRightClicked();
-            if (villager.getCustomName() != null && villager.getCustomName().equals("バーテンダー")) {
-                // プレイヤーがバーテンダーという名前の村人を右クリックした場合、取引を無効にする
-                event.setCancelled(true);
-                Player player = event.getPlayer();
-                player.sendMessage("このバーテンダーは取引できません！");
+    public void Ybwisky(InventoryClickEvent event) {
+        // クリックされたインベントリを取得
+        Inventory clickedInventory = event.getClickedInventory();
+
+        // クリックされたインベントリがプレイヤーのインベントリであるかどうかをチェック
+        if (clickedInventory != null && clickedInventory.getType() == InventoryType.CHEST) {
+            // クリックされたアイテムを取得
+            ItemStack clickedItem = event.getCurrentItem();
+
+            // クリックされたアイテムが空でないかつ名前が "Ybウィスキー" であるかどうかをチェック
+            if (clickedItem != null && clickedItem.getType() != Material.AIR && clickedItem.hasItemMeta()) {
+                ItemMeta meta = clickedItem.getItemMeta();
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー")) {
+                    // クリックされたアイテムが "Ybウィスキー" である場合、そのアイテムをプレイヤーのインベントリに追加
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        // イベントをキャンセルする（インベントリの移動を防止）
+                        event.setCancelled(true);
+                    } else {
+                        // プレイヤーのインベントリがいっぱいの場合は何もしない
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
             }
         }
     }
