@@ -106,6 +106,13 @@ public final class Sake extends JavaPlugin implements Listener {
         hmeta.setColor(Color.PURPLE);
         h.setItemMeta(hmeta);
 
+        ItemStack i = new ItemStack(Material.POTION);
+        PotionMeta imeta = (PotionMeta) c.getItemMeta();
+        imeta.setDisplayName("堀端ミルク「生搾り」");
+        imeta.setLore(Arrays.asList("購入金額　2000円", "当選金額　6000円", "期待度★★☆☆☆","貧〇だからこそ、ミルクが濃い！！（迫真）")); // ここで複数行の説明を設定
+        imeta.setColor(Color.WHITE);
+        i.setItemMeta(imeta);
+
         inventory.setItem(0, a);
         inventory.setItem(1, b);
         inventory.setItem(2, c);
@@ -225,6 +232,16 @@ public final class Sake extends JavaPlugin implements Listener {
                         player.sendMessage("インベントリがいっぱいです！");
                     }
                 }
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("堀端ミルク「生搾り」") && meta.hasLore()) {
+                    // お金が足りているかを判定
+                    Player player = (Player) event.getWhoClicked();
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(clickedItem);
+                        event.setCancelled(true);
+                    } else {
+                        player.sendMessage("インベントリがいっぱいです！");
+                    }
+                }
             }
         }
     }
@@ -334,6 +351,19 @@ public final class Sake extends JavaPlugin implements Listener {
                 player.sendMessage(ChatColor.YELLOW + "9000円" + ChatColor.WHITE + "獲得しました！！");
                 // playerにお金を増やす
                 event.setCancelled(true);
+            } else {
+                player.sendMessage("ハズレ...");
+            }
+        }
+        if (item.getType() == Material.POTION && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("堀端ミルク「生搾り」") && item.getItemMeta().hasLore()) {
+            double probability = Math.random();
+            double threshold = 0.333; // 33.3%の確率
+
+            if (probability < threshold) {
+                player.sendMessage("当たり！");
+                player.sendMessage(ChatColor.YELLOW + "6000円" + ChatColor.WHITE + "獲得しました！！");
+                // playerにお金を増やす
+
             } else {
                 player.sendMessage("ハズレ...");
             }
