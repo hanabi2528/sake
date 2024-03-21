@@ -21,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Arrays;
 
 public final class Sake extends JavaPlugin implements Listener {
+    Databace databace = new Databace();
 
     @Override
     public void onEnable() {
@@ -31,6 +32,7 @@ public final class Sake extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        databace.CloseConnection();
     }
 
     @EventHandler
@@ -154,8 +156,8 @@ public final class Sake extends JavaPlugin implements Listener {
             if (clickedItem != null && clickedItem.getType() != Material.AIR && clickedItem.hasItemMeta()) {
                 ItemMeta meta = clickedItem.getItemMeta();
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
+                    databace.Ybwisky(player);
                     if (player.getInventory().firstEmpty() != -1) {
                         player.getInventory().addItem(clickedItem);
                         event.setCancelled(true);
@@ -226,6 +228,7 @@ public final class Sake extends JavaPlugin implements Listener {
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("八つ橋スプライト") && meta.hasLore()) {
                     // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
+                    databace.Ybwisky(player);
                     if (player.getInventory().firstEmpty() != -1) {
                         player.getInventory().addItem(clickedItem);
                         event.setCancelled(true);
