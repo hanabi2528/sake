@@ -45,12 +45,7 @@ public final class Sake extends JavaPlugin implements Listener {
             String villagerName = villager.getCustomName();
             if (villagerName != null) {
                 if (villagerName.equals("はなびバーテンダー")) {
-                    // イベントが村人を右クリックした場合
-
-                    // プレイヤーを取得
                     Player player = event.getPlayer();
-
-                    // カスタムインベントリを開く
                     createCustomInventory(player);
                 }
             }
@@ -172,6 +167,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-10000);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -185,6 +181,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-11014);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -198,6 +195,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-100000);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -211,6 +209,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-77777);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -224,6 +223,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-350);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -237,6 +237,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-1000);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -250,6 +251,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-500);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -263,6 +265,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-10000);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
@@ -276,6 +279,7 @@ public final class Sake extends JavaPlugin implements Listener {
                         if (player.getInventory().firstEmpty() != -1) {
                             player.getInventory().addItem(clickedItem);
                             event.setCancelled(true);
+                            databace.AddMoney(player,-2000);
                         } else {
                             player.sendMessage("インベントリがいっぱいです！");
                         }
