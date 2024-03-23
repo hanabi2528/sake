@@ -4,6 +4,8 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -37,14 +39,21 @@ public final class Sake extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (event.getRightClicked() instanceof Villager) {
-            // イベントが村人を右クリックした場合
+        Entity entity = event.getRightClicked();
+        if (entity.getType() == EntityType.VILLAGER) {
+            Villager villager = (Villager) entity;
+            String villagerName = villager.getCustomName();
+            if (villagerName != null) {
+                if (villagerName.equals("はなびバーテンダー")) {
+                    // イベントが村人を右クリックした場合
 
-            // プレイヤーを取得
-            Player player = event.getPlayer();
+                    // プレイヤーを取得
+                    Player player = event.getPlayer();
 
-            // カスタムインベントリを開く
-            createCustomInventory(player);
+                    // カスタムインベントリを開く
+                    createCustomInventory(player);
+                }
+            }
         }
     }
 
@@ -157,93 +166,119 @@ public final class Sake extends JavaPlugin implements Listener {
                 ItemMeta meta = clickedItem.getItemMeta();
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("Ybウィスキー") && meta.hasLore()) {
                     Player player = (Player) event.getWhoClicked();
-                    databace.Ybwisky(player);
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 10000) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("大石ウォッカ") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 11014) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("無限岩崎スカッシュ") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 100000) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("ハッシーハッピーブライトシャンパン777") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 77777) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("梅肉入り倉橋") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 350) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("中日ソーダ") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 1000) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("速水ロック") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 500) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("八つ橋スプライト") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    databace.Ybwisky(player);
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 10000) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
                 if (meta.hasDisplayName() && meta.getDisplayName().equals("堀端ミルク「生搾り」") && meta.hasLore()) {
-                    // お金が足りているかを判定
                     Player player = (Player) event.getWhoClicked();
-                    if (player.getInventory().firstEmpty() != -1) {
-                        player.getInventory().addItem(clickedItem);
-                        event.setCancelled(true);
+                    if (databace.CheckMoney(player) < 2000) {
+                        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "所持金が不足しています");
                     } else {
-                        player.sendMessage("インベントリがいっぱいです！");
+                        if (player.getInventory().firstEmpty() != -1) {
+                            player.getInventory().addItem(clickedItem);
+                            event.setCancelled(true);
+                        } else {
+                            player.sendMessage("インベントリがいっぱいです！");
+                        }
                     }
                 }
             }
@@ -262,7 +297,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + player.getDisplayName() + "がYbウィスキーに当選しました！");
                 player.sendMessage(ChatColor.YELLOW + "100000円" + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,100000);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -275,7 +310,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + player.getDisplayName() + "が大石ウォッカに当選しました！");
                 player.sendMessage(ChatColor.YELLOW + "931014円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,931014);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -288,7 +323,7 @@ public final class Sake extends JavaPlugin implements Listener {
             // 確率に基づいてイベントを起こす
             if (probability < threshold) {
                 player.sendMessage(ChatColor.YELLOW + "90000円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,90000);
                 event.setCancelled(true);
             } else {
                 player.sendMessage("ハズレ...");
@@ -301,7 +336,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + player.getDisplayName() + "がハッシーハッピーブライトシャンパン777に当選しました！");
                 player.sendMessage(ChatColor.YELLOW + "1103000円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,1103000);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -314,7 +349,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,700);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -327,7 +362,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "1500円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,1500);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -340,7 +375,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "700円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,700);
 
             } else {
                 player.sendMessage("ハズレ...");
@@ -353,7 +388,7 @@ public final class Sake extends JavaPlugin implements Listener {
             // 確率に基づいてイベントを起こす
             if (probability < threshold) {
                 player.sendMessage(ChatColor.YELLOW + "9000円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,9000);
                 event.setCancelled(true);
             } else {
                 player.sendMessage("ハズレ...");
@@ -366,7 +401,7 @@ public final class Sake extends JavaPlugin implements Listener {
             if (probability < threshold) {
                 player.sendMessage("当たり！");
                 player.sendMessage(ChatColor.YELLOW + "6000円" + ChatColor.WHITE + "獲得しました！！");
-                // playerにお金を増やす
+                databace.AddMoney(player,6000);
 
             } else {
                 player.sendMessage("ハズレ...");
